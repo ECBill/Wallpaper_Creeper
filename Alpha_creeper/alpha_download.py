@@ -15,7 +15,8 @@ def download(url):
         soup = BeautifulSoup(html, 'lxml')
         link_1 = soup.find_all('img', class_='img-responsive big-thumb thumb-desktop')
         link_2 = soup.find_all('img', class_='img-responsive thumb-desktop')
-        links = link_1+link_2
+        link_3 = soup.find_all('img', class_='img-responsive big-thumb')
+        links = link_1+link_2+link_3
         #print(links)
         if links == []:
             break
