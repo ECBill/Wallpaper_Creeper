@@ -2,11 +2,13 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 import requests
 import os
+import undetected_chromedriver as uc
+
 
 def download(url):
-    option = webdriver.ChromeOptions()
-    # option.add_argument("headless")
-    browser = webdriver.Chrome(options=option)
+    opt = uc.ChromeOptions()
+    #opt.add_argument(argument="headless")
+    browser = uc.Chrome(options=opt)
     i = 1
     srcs = list()
     while True:

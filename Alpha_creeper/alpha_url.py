@@ -2,33 +2,20 @@ import time
 import requests as requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
+import undetected_chromedriver as uc
 from selenium.webdriver.common.by import By
 
 def get_url(key_word):
-
-    option = webdriver.ChromeOptions()
-    option.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36")
-    browser = webdriver.Chrome(options=option)
-    # 打开网页
-    browser.get('https://wall.alphacoders.com/')
-    time.sleep(3)
-    # 找到搜索框并输入关键词
-    input_box = browser.find_element(By.CSS_SELECTOR, 'input.search-bar.form-control.input-lg')
-    input_box.click()
-    time.sleep(1.1)
-    input_box.send_keys(key_word)
-
-    # 找到搜索按钮并点击
-    search_button = browser.find_element(By.CSS_SELECTOR, '[id="search_zone_index"] > .input-group-btn')
-    time.sleep(1.2)
-    search_button.click()
+    opt = uc.ChromeOptions()
+    opt.add_argument(argument="headless")
+    browser = uc.Chrome(options=opt)
+    url = 'https://wall.alphacoders.com/search.php?search=' + key_word
+    browser.get(url)
     browser.refresh()
-    # 获取搜索结果页面的网址
     result_url = browser.current_url
-    browser.get(result_url)
-    time.sleep(2)
-    result_url = browser.current_url
+    browser.close()
     res = result_url+'&quickload=230+&page='
+    browser.quit()
     return res
 
 def get_url_byapi(key_word):
@@ -58,4 +45,32 @@ def get_url_byapi(key_word):
     meta_tag = soup.find("meta", {"property": "og:url"})
     url = meta_tag["content"]
     res = url + '&quickload=230+&page='
+    return res
+
+
+def get_url_past(key_word):
+    option = webdriver.ChromeOptions()
+    option.add_argument(
+        "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36")
+    browser = webdriver.Chrome(options=option)
+    # 打开网页
+    browser.get('https://wall.alphacoders.com/')
+    time.sleep(3)
+    # 找到搜索框并输入关键词
+    input_box = browser.find_element(By.CSS_SELECTOR, 'input.search-bar.form-control.input-lg')
+    input_box.click()
+    time.sleep(1.1)
+    input_box.send_keys(key_word)
+
+    # 找到搜索按钮并点击
+    search_button = browser.find_element(By.CSS_SELECTOR, '[id="search_zone_index"] > .input-group-btn')
+    time.sleep(1.2)
+    search_button.click()
+    browser.refresh()
+    # 获取搜索结果页面的网址
+    result_url = browser.current_url
+    browser.get(result_url)
+    time.sleep(2)
+    result_url = browser.current_url
+    res = result_url + '&quickload=230+&page='
     return res
