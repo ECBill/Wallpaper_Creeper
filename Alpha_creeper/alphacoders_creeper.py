@@ -6,4 +6,4 @@ import alpha_download
 #url = alpha_url.get_url_byapi('splatoon')
 url = alpha_url.get_url('Naruto')
 print(url)
-alpha_download.download(url)
+#alpha_download.download(url)
