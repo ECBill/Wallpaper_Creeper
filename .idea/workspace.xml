@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77895e11-d56c-4142-b04f-7f2a5e154efc" name="Changes" comment="bili_video upload">
-      <change afterPath="$PROJECT_DIR$/NH_creeper/nhentai.py" afterDir="false" />
+    <list default="true" id="77895e11-d56c-4142-b04f-7f2a5e154efc" name="Changes" comment="nh complete">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alpha_creeper/alpha_download.py" beforeDir="false" afterPath="$PROJECT_DIR$/Alpha_creeper/alpha_download.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Alpha_creeper/alphacoders_creeper.py" beforeDir="false" afterPath="$PROJECT_DIR$/Alpha_creeper/alphacoders_creeper.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -41,7 +41,7 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.nhentai">
+  <component name="RunManager" selected="Python.alphacoders_creeper">
     <configuration name="alphacoders_creeper" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="personal data" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -149,8 +149,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.nhentai" />
         <item itemvalue="Python.alphacoders_creeper" />
+        <item itemvalue="Python.nhentai" />
         <item itemvalue="Python.video_creeper" />
         <item itemvalue="Python.another_way" />
         <item itemvalue="Python.test (1)" />
@@ -180,12 +180,20 @@
       <option name="project" value="LOCAL" />
       <updated>1683359278776</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="nh complete">
+      <created>1688698727303</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1688698727303</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first upload" />
     <MESSAGE value="bili_video upload" />
-    <option name="LAST_COMMIT_MESSAGE" value="bili_video upload" />
+    <MESSAGE value="nh complete" />
+    <option name="LAST_COMMIT_MESSAGE" value="nh complete" />
   </component>
 </project>
