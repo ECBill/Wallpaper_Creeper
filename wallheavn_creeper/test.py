@@ -1,3 +1,1 @@
-a = 'sss'
-b = str(a)
-print(b)
+#https://wallhaven.cc/
