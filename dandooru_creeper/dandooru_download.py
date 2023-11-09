@@ -9,63 +9,103 @@ import glob
 
 path = './result/'
 
-def down_pic_url(url):
-    href = ''
+def fetch_pic_url(url):
+    href = None
     try:
         browser = uc.Chrome()
+    except:
+        try:
+            browser = uc.Chrome()
+        except:
+            print(url)
+            return None
+    try:
         browser.get(url)
+    except:
+        try:
+            browser.get(url)
+        except Exception as e:
+            print(e)
+            print(url)
+            return None
+    try:
         html_data = browser.page_source
         soup = BeautifulSoup(html_data, "html.parser")
-        # links = soup.find_all('li', id_='post-info-size')
         li_tag = soup.find('li', {'id': 'post-info-size'})
         a_tag = li_tag.find('a')
         href = a_tag['href']
         browser.close()
-    except:
-        try:
-            browser = uc.Chrome()
-            browser.get(url)
-            html_data = browser.page_source
-            soup = BeautifulSoup(html_data, "html.parser")
-            # links = soup.find_all('li', id_='post-info-size')
-            li_tag = soup.find('li', {'id': 'post-info-size'})
-            a_tag = li_tag.find('a')
-            href = a_tag['href']
-            browser.close()
-        except:
-            print(url)
+    except Exception as e:
+        print(e)
+        print('未找到图片:' + url)
+        browser.close()
+
     if not href:
-        return
+        return None
+    return href
+
+
+def down_from_url(href):
     try:
-        response = requests.get(href)
+        session = requests.Session()
+        session.trust_env = False
+        response = session.get(href)
         with open(os.path.join(path, os.path.basename(href)), 'wb') as f:
             f.write(response.content)
     except:
         try:
-            response = requests.get(href)
+            session = requests.Session()
+            session.trust_env = False
+            response = session.get(href)
             with open(os.path.join(path, os.path.basename(href)), 'wb') as f:
                 f.write(response.content)
-        except:
-            response = requests.get(href)
-            with open(os.path.join(path, os.path.basename(href)), 'wb') as f:
-                f.write(response.content)
-    return
+        except Exception as e:
+            print(e)
+            return 0
+    return 1
 
-def read_from_pkl():
-    # 获取当前目录下所有的.pkl文件
-    file_pattern = os.path.join(os.path.dirname(__file__), '*.pkl')
-    pkl_files = glob.glob(file_pattern)
+def trans_pic_url():
+    error = list()
+    target = list()
+    with open('all_urls.pkl', 'rb') as f:
+        data = pickle.load(f)
+        count = len(data)
+        pic_num = 0
+        for p_url in data:
+            pic_url = fetch_pic_url(p_url)
+            if not pic_url:
+                pic_url = fetch_pic_url(p_url)
+                if not pic_url:
+                    error.append(p_url)
+                else:
+                    target.append(pic_url)
+            pic_num+=1
+            print("第"+str(pic_num)+"张图片处理完成,共有"+str(count)+"张")
+    f.close()
 
-    # 遍历.pkl文件并读取它们
-    for pkl_file in pkl_files:
-        print("正在载入："+pkl_file)
-        with open(pkl_file, 'rb') as f:
-            data = pickle.load(f)
-            for urls in data:
-                for p_url in urls:
-                    down_pic_url(p_url)
-        print(pkl_file+'下载完成')
-        os.remove(pkl_file)
+    with open('trans_urls.pkl', 'wb') as file:
+        pickle.dump(target, file)
+    with open('error_urls.pkl', 'wb') as file:
+        pickle.dump(error, file)
 
 
-read_from_pkl()
+def down_pic():
+    error = list()
+    with open('trans_urls.pkl', 'rb') as f:
+        data = pickle.load(f)
+        count = len(data)
+        pic_num = 1
+        for p_url in data:
+            result = down_from_url(p_url)
+            if not result:
+                result = down_from_url(p_url)
+                if not result:
+                    error.append(pic_num)
+            print("第" + str(pic_num) + "张图片处理完成,共有" + str(count) + "张")
+            pic_num += 1
+    f.close()
+    with open('down_error_urls.pkl', 'wb') as file:
+        pickle.dump(error, file)
+    file.close()
+
+down_pic()
