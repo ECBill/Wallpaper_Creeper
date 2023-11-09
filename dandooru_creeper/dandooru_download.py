@@ -58,11 +58,13 @@ def read_from_pkl():
 
     # 遍历.pkl文件并读取它们
     for pkl_file in pkl_files:
+        print("正在载入："+pkl_file)
         with open(pkl_file, 'rb') as f:
             data = pickle.load(f)
             for urls in data:
                 for p_url in urls:
                     down_pic_url(p_url)
+        print(pkl_file+'下载完成')
         os.remove(pkl_file)
 
 
